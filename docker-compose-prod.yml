@@ -1,0 +1,18 @@
+version: '3'
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.production
+    ports:
+      - "3000:80" 
+    working_dir: /usr/share/nginx/html
+    environment:
+      - NODE_ENV=production
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.production
+    ports:
+      - "5000:5000"
