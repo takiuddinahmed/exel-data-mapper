@@ -23,3 +23,15 @@ services:
       - ./server:/app
     environment:
       - FLASK_ENV=development
+  
+  nginx:
+    image: nginx:1.15
+    container_name: nginx
+    volumes:
+        - ../:/var/www
+        - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+        - 80:80
+    depends_on:
+        - server
+        - client
