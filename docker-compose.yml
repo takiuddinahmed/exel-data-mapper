@@ -1,11 +1,11 @@
-version: '3'
+version: "3"
 services:
   client:
     build:
       context: ./client
       dockerfile: Dockerfile.development
     ports:
-      - "3000:3000" 
+      - "3000:3000"
     working_dir: /app
     volumes:
       - ./client:/app
@@ -23,15 +23,19 @@ services:
       - ./server:/app
     environment:
       - FLASK_ENV=development
-  
+    env_file:
+      - .env
+
   nginx:
     image: nginx:1.15
     container_name: nginx
     volumes:
-        - ../:/var/www
-        - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ../:/var/www
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
-        - 80:80
+      - 80:80
     depends_on:
-        - server
-        - client
+      - server
+      - client
+volumes:
+  mongodb_data:

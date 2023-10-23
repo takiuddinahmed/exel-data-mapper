@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 interface FormValue {
     file: FileList | null;
 }
@@ -11,6 +12,7 @@ const initialFormValue: FormValue = {
 
 export function FileUploadForm() {
     const [formValue, setFormValue] = useState<FormValue>(initialFormValue);
+    const nagigate = useNavigate()
 
     const handleSubmit = async () => {
         if (formValue.file) {
@@ -22,7 +24,9 @@ export function FileUploadForm() {
                 body: formdata,
             });
             const data = await res.json();
-            console.log({ data });
+            if(data?.success){
+                nagigate(data.filename)
+            }
         }
     };
 

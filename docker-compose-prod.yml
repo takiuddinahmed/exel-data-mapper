@@ -16,3 +16,4 @@ services:
       dockerfile: Dockerfile.production
     ports:
       - "5000:5000"
+  
